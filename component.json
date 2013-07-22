@@ -1,0 +1,15 @@
+{
+  "name": "form",
+  "repo": "chameleonui/form",
+  "description": "Full set of forms styles",
+  "version": "1.0.0",
+  "keywords": [],
+  "dependencies": {
+    "chameleonui/utils": "*"
+  },
+  "development": {},
+  "license": "MIT",
+  "styles": [
+    "form.styl"
+  ]
+}

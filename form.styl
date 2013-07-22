@@ -1,0 +1,773 @@
+// =============================================================================
+// Forms 
+// =============================================================================
+// Inspired by Twitter's Bootstrap
+
+
+// Variables
+// =============================================================================
+form-color ?= #000;
+form-font-family ?= "Helvetica Neue", Helvetica, Arial, sans-serif;
+form-font-size ?= 16px;
+form-font-weight ?= 400;
+form-line-height ?= 1.5;
+
+form-legend-color ?= #000;
+form-legend-font-size ?= 21px;
+form-legend-font-weight ?= 700;
+form-legend-small-color ?= #999;
+form-legend-small-font-size ?= 80%;
+form-legend-small-font-weigth ?= 400;
+form-legend-border-color ?= #cbcbcb;
+form-legend-margin-bottom ?= .5;
+
+form-input-bg-color ?= #fff;
+form-input-border-color ?= #ccc;
+form-input-disabled-bg-color ?= #eee;
+form-input-disabled-border-color ?= #ddd;
+form-input-active-color ?= #46a546;
+form-input-border-radius ?= 0px;
+form-input-height ?= 32px;
+
+form-select-border-color ?= #cbcbcb;
+
+form-control-group-margin-bottom = 0.5;
+
+form-actions-bg-color ?= #f2f2f2;
+form-actions-border-color ?= #cbcbcb;
+
+// Field states
+form-field-states-list ?= 'error'; // keep 'error' as string becuase it is stylus function
+// Field states --Error
+form-error-color ?= #f5372b;
+form-error-border-color ?= form-error-color;
+form-error-bg-color ?= lighten(form-error-color, 50%);
+
+
+// Form Helpers
+form-placeholder-color ?= lighten(#000, 60%);
+form-help-color ?= lighten(#000, 40%);
+
+
+// Addons
+form-input-addon-color ?= #000;
+form-input-addon-border-color ?= #cbcbcb;
+form-input-addon-bg-color ?= #f2f2f2;
+
+
+// Mixins
+// =============================================================================
+form-font-reset(){
+    font-size: form-font-size;
+    line-height: form-line-height;
+    font-weight: form-font-weight;
+}
+
+// =============================================================================
+
+form-field-state(state) {
+    // Set the text color
+    > label,
+    .error-inline,
+    .error-block {
+        color: form-+state+-color;
+    }
+
+    // Style inputs accordingly
+    .checkbox,
+    .radio,
+    input,
+    select,
+    textarea {
+        color: color;
+        border-color: form-+state+-border-color;
+
+        &:focus {
+            border-color: darken(form-+state+-border-color, 10%);
+            box-shadow: 0 0 6px lighten(form-+state+-border-color, 20%);
+        }
+    }
+
+    // Give a small background color for input-prepend/-append
+    .input-prepend .add-on,
+    .input-append .add-on {
+        color: form-+state+-color;
+        background-color: form-+state+-bg-color;
+        border-color: form-+state+-border-color;
+        text-shadow: none;
+    }
+}
+
+
+// =============================================================================
+
+input-placeholder(color, font-style = normal) {
+
+    &:-moz-placeholder {
+        color: color;
+        font-style: font-style 
+    }
+
+    &:-ms-input-placeholder {
+        color: color;
+        font-style: font-style 
+    }
+
+    &::-moz-placeholder {
+        color: color;
+        font-style: font-style 
+    }
+
+    &::-webkit-input-placeholder {
+        color: color;
+        font-style: font-style 
+    }
+}
+
+// =============================================================================
+form-normalize(){
+    // Define consistent border, margin, and padding.
+    fieldset {
+        border: 1px solid #c0c0c0;
+        margin: 0 2px;
+        padding: 0.35em 0.625em 0.75em;
+    }
+
+    // 1. Correct `color` not being inherited in IE 8/9.
+    // 2. Remove padding so people aren't caught out if they zero out fieldsets.
+    legend {
+        border: 0; /* 1 */
+        padding: 0; /* 2 */
+    }
+
+    // 1. Correct font family not being inherited in all browsers.
+    // 2. Correct font size not being inherited in all browsers.
+    // 3. Address margins set differently in Firefox 4+, Safari 5, and Chrome.
+    button,
+    input,
+    select,
+    textarea {
+        font-family: inherit; /* 1 */
+        font-size: 100%; /* 2 */
+        margin: 0; /* 3 */
+    }
+
+    // Address Firefox 4+ setting `line-height` on `input` using `!important` in
+    // the UA stylesheet.
+    button,
+    input {
+        line-height: normal;
+    }
+
+    // Address inconsistent `text-transform` inheritance for `button` and `select`.
+    // All other form control elements do not inherit `text-transform` values.
+    // Correct `button` style inheritance in Chrome, Safari 5+, and IE 8+.
+    // Correct `select` style inheritance in Firefox 4+ and Opera.
+    button,
+    select {
+        text-transform: none;
+    }
+
+     // 1. Avoid the WebKit bug in Android 4.0.* where (2) destroys native 
+     // `audio` and `video` controls.
+     // 2. Correct inability to style clickable `input` types in iOS.
+     // 3. Improve usability and consistency of cursor style between image-type 
+     // `input` and others.
+
+    button,
+    html input[type="button"], /* 1 */
+    input[type="reset"],
+    input[type="submit"] {
+        -webkit-appearance: button; /* 2 */
+        cursor: pointer; /* 3 */
+    }
+
+    // Re-set default cursor for disabled elements.
+    button[disabled],
+    html input[disabled] {
+        cursor: default;
+    }
+
+    // 1. Address box sizing set to `content-box` in IE 8/9.
+    // 2. Remove excess padding in IE 8/9.
+    input[type="checkbox"],
+    input[type="radio"] {
+        box-sizing: border-box; /* 1 */
+        padding: 0; /* 2 */
+    }
+
+    // 1. Address `appearance` set to `searchfield` in Safari 5 and Chrome.
+    // 2. Address `box-sizing` set to `border-box` in Safari 5 and Chrome 
+    // (include `-moz` to future-proof).
+
+    input[type="search"] {
+        -webkit-appearance: textfield; /* 1 */
+        -moz-box-sizing: content-box;
+        -webkit-box-sizing: content-box; /* 2 */
+        box-sizing: content-box;
+    }
+
+    // Remove inner padding and search cancel button in Safari 5 and Chrome on OS X.
+    input[type="search"]::-webkit-search-cancel-button,
+    input[type="search"]::-webkit-search-decoration {
+        -webkit-appearance: none;
+    }
+
+    // Remove inner padding and border in Firefox 4+.
+    button::-moz-focus-inner,
+    input::-moz-focus-inner {
+        border: 0;
+        padding: 0;
+    }
+
+    // 1. Remove default vertical scrollbar in IE 8/9.
+    // 2. Improve readability and alignment in all browsers.
+    textarea {
+        overflow: auto; /* 1 */
+        vertical-align: top; /* 2 */
+    }
+} 
+
+// =============================================================================
+
+form-style(){
+    // Set distance after form
+    form {
+        margin-bottom: 1;
+    }
+
+    fieldset {
+        padding: 0;
+        border: 0;
+        margin: 0;
+    }
+
+    legend {
+        display: block;
+        width: 100%;
+        margin-bottom: form-legend-margin-bottom;
+        border: 0;
+        border-bottom: 1px solid form-legend-border-color;
+        padding: 0;
+        font-size: form-legend-font-size;
+        font-weight: form-legend-font-weight;
+        color: form-legend-color;
+
+        small,
+        .small {
+            font-size: form-legend-small-font-size;
+            font-weight: form-legend-small-font-weigth;
+            color: form-legend-small-color;
+        }
+    }
+
+    label,
+    input,
+    button,
+    select,
+    textarea {
+        form-font-reset();
+    }
+
+    input,
+    button,
+    select,
+    textarea {
+        font-family: form-font-family;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 4px;
+    }
+
+    // =============================================================================
+
+    // Shared size and type resets
+    select,
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"],
+    .uneditable-input {
+        display: inline-block;
+        height: form-input-height;
+        margin-bottom: 8px;
+        padding: 4px;
+        form-font-reset();
+        color: form-color;
+        vertical-align: middle; // fix 2px gap for inline forms
+    }
+
+    input, 
+    textarea {
+        width: 210px;
+    }
+
+    textarea {
+        height: auto;
+    }
+
+    textarea,
+    input[type="text"],
+    input[type="password"],
+    input[type="datetime"],
+    input[type="datetime-local"],
+    input[type="date"],
+    input[type="month"],
+    input[type="time"],
+    input[type="week"],
+    input[type="number"],
+    input[type="email"],
+    input[type="url"],
+    input[type="search"],
+    input[type="tel"],
+    input[type="color"],
+    .uneditable-input {
+      box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+      border: 1px solid form-input-border-color;
+      border-radius: form-input-border-radius;
+      transition: border linear .2s, box-shadow linear .2s;
+      background-color: form-input-bg-color;
+
+      &:focus {
+        box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(82,168,236,.6);
+        outline: 0;
+        outline: thin dotted \9; // IE6-9
+        border-color: rgba(82,168,236,.8);
+      }
+    }
+
+    input[type="radio"],
+    input[type="checkbox"] {
+        margin: 5px 0;
+        line-height: normal;
+        cursor: pointer;
+    }
+
+    input[type="submit"],
+    input[type="reset"],
+    input[type="button"],
+    input[type="radio"],
+    input[type="checkbox"] {
+        width: auto;
+    }
+
+    .uneditable-textarea {
+        width: auto;
+        height: auto;
+    }
+
+    input[type="file"] {
+      display: block;
+      margin: 0;
+      padding: 5px 0 0;
+    }
+
+    select {
+        height: form-input-height;
+        line-height: form-input-height;
+        width: 210px;
+        border: 1px solid form-select-border-color;
+    }
+
+    select[multiple],
+    select[size] {
+        height: auto;
+    }
+
+    // select:focus,
+    // input[type="file"]:focus,
+    // input[type="radio"]:focus,
+    // input[type="checkbox"]:focus {
+    //     @include tab-focus();
+    // }
+
+    // =============================================================================
+
+    .radio,
+    .checkbox {
+        min-height: 20px; // clear the floating input if there is no label text
+        padding-left: 20px;
+    }
+
+    .radio input[type="radio"],
+    .checkbox input[type="checkbox"] {
+        float: left;
+        margin-left: -20px;
+    }
+
+    // Move the options list down to align with labels
+    .controls > .radio:first-child,
+    .controls > .checkbox:first-child {
+        padding-top: 5px; // has to be padding because margin collaspes
+    }
+
+    .radio.inline,
+    .checkbox.inline {
+        display: inline-block;
+        padding-top: 5px;
+        margin-bottom: 0;
+        vertical-align: middle;
+    }
+
+    .radio.inline + .radio.inline,
+    .checkbox.inline + .checkbox.inline {
+        margin-left: 12px; // space out consecutive inline controls
+    }
+
+    // General classes for quick sizes
+    .input-mini {
+        width: 60px;
+    }
+    .input-small {
+        width: 90px;
+    }
+    .input-medium {
+        width: 150px;
+    }
+    .input-large {
+        width: 210px;
+    }
+    .input-xlarge {
+        width: 270px;
+    }
+    .input-xxlarge {
+        width: 530px;
+    }
+    .input-expand {
+        width: 100%;
+    }
+
+    // Disabled and read-only inputs
+    input[disabled],
+    select[disabled],
+    textarea[disabled],
+    input[readonly],
+    select[readonly],
+    textarea[readonly] {
+        background-color: form-input-disabled-bg-color;
+        border-color: form-input-disabled-border-color;
+        cursor: not-allowed;
+    }
+
+    // Explicitly reset the colors here
+    input[type="radio"][disabled],
+    input[type="checkbox"][disabled],
+    input[type="radio"][readonly],
+    input[type="checkbox"][readonly] {
+        background-color: transparent;
+    }
+
+    // Form field feedback states
+    // ========================================================================
+    // Listed states generator
+    for state in form-field-states-list {
+        .control-group.is-{state}{
+            form-field-state(state);
+        }
+    }
+   
+    // HTML5 invalid states
+    // Shares styles with the .control-group.error above
+    input:focus:required:invalid, 
+    textarea:focus:required:invalid, 
+    select:focus:required:invalid {
+        border-color: #ee5f5b;
+        color: #b94a48;
+
+        &:focus {
+            @include box-shadow(0 0 6px lighten(#ee5f5b, 20%));
+            border-color: darken(#ee5f5b, 10%);
+        }
+    }
+
+    // Form actions
+    // ========================================================================
+
+    .form-actions {
+        padding: 1;
+        margin-top: .5;
+        margin-bottom: 1;
+        background-color: form-actions-bg-color;
+        border-top: 1px solid form-actions-border-color;
+        //@include clearfix(); // to allow for .pull-right button containers
+    }
+
+    // For text that needs to appear as an input but should not be an input
+    .uneditable-input {
+        box-shadow: inset 0 1px 2px rgba(0,0,0,.025);
+        overflow: hidden; // prevent text from wrapping, but still cut it off like input
+        white-space: nowrap;
+        border-color: form-input-border-color;
+        background-color: form-input-bg-color;
+        cursor: not-allowed;
+    }
+
+    // Placeholder text gets special styles;
+    // can't be bundled together though for some reason
+    // need special mixin in SCSS
+    input-placeholder(form-placeholder-color, italic);
+
+    // Help text
+    // =============================================================================
+
+    .help-block,
+    .help-inline {
+        color: form-help-color; // lighten the text some for contrast
+    }
+
+    .help-block,
+    .error-block {
+        margin-bottom: (1/4);
+        display: block; // account for any element using help-block
+    }
+
+    .help-inline,
+    .error-inline {
+        display: inline-block;
+        padding-left: 5px;
+        vertical-align: middle;
+    }
+
+    // Input groups
+    // ------------
+
+    // Allow us to put symbols and text within the input field for a cleaner look
+    .input-prepend,
+    .input-append {
+        margin-bottom: 5px;
+
+        input, 
+        select,
+        .uneditable-input {
+            border-radius: 0 form-input-border-radius form-input-border-radius 0;
+            // placed here by default so that on :focus we can place the input above the 
+            // .add-on for full border and box-shadow goodness
+            position: relative;
+            // prevent bottom margin from screwing up alignment in stacked forms 
+            margin-bottom: 0; 
+            vertical-align: middle;
+
+            // Make input on top when focused so blue border and shadow always show
+            &:focus {
+                z-index: 2;
+            }
+        }
+
+        .uneditable-input {
+            border-left-color: #ccc;
+        }
+
+        .add-on {
+            display: inline-block;
+            width: auto;
+            min-width: 32px;
+            padding: 3px 5px;
+            border: 1px solid form-input-addon-border-color;
+            color: form-input-addon-color;
+            text-align: center;
+            text-shadow: 0 1px 0 #fff;
+            vertical-align: middle;
+            background-color: form-input-addon-bg-color;
+        }
+
+        .add-on,
+        .button {
+            margin-left: -1px;
+            border-radius: 0;
+        }
+
+        .is-active {
+            background-color: lighten(form-input-active-color, 30);
+            border-color: form-input-active-color;
+        }
+    }
+
+    .input-prepend {
+
+        .add-on,
+        .button {
+            margin-right: -1px;
+        }
+        .add-on:first-child,
+        .button:first-child {
+            border-radius: form-input-border-radius 0 0 form-input-border-radius;
+        }
+    }
+
+    .input-append {
+
+        input, 
+        select,
+        .uneditable-input {
+            border-radius: form-input-border-radius 0 0 form-input-border-radius;
+        }
+
+        .uneditable-input {
+            border-right-color: #ccc;
+            border-left-color: #eee;
+        }
+
+        .add-on:last-child,
+        .button:last-child {
+            border-radius: 0 form-input-border-radius form-input-border-radius 0;
+        }
+    }
+
+    // Remove all border-radius for inputs with both prepend and append
+    .input-prepend.input-append {
+
+        input, select,
+        .uneditable-input {
+            border-radius: 0;
+        }
+
+        .add-on:first-child,
+        .button:first-child {
+            margin-right: -1px;
+            border-radius: form-input-border-radius 0 0 form-input-border-radius;
+        }
+
+        .add-on:last-child,
+        .button:last-child {
+            margin-left: -1px;
+            border-radius: 0 form-input-border-radius form-input-border-radius 0;
+        }
+    }
+
+    // Search form
+    // =============================================================================
+
+    .search-query {
+        border-radius: 14px;
+        padding-right: 14px;
+        padding-right: 4px \9;
+        padding-left: 14px;
+        padding-left: 4px \9; // IE7-8 doesn't have border-radius, don't indent padding
+        margin-bottom: 0; // remove the default margin on all inputs
+    }
+
+    // Horizontal & vertical forms
+    // =============================================================================
+
+    // Common properties
+    .form-search,
+    .form-inline,
+    .form-horizontal {
+
+        input,
+        textarea,
+        select,
+        .help-inline,
+        .error-inline,
+        .uneditable-input,
+        .input-prepend,
+        .input-append {
+            display: inline-block;
+            margin-bottom: 0;
+        }
+
+        // Re-hide hidden elements due to specifity
+        .hide {
+            display: none;
+        }
+    }
+
+    .form-search label,
+    .form-inline label {
+        display: inline-block;
+    }
+
+    // Remove margin for input-prepend/-append
+    .form-search .input-append,
+    .form-inline .input-append,
+    .form-search .input-prepend,
+    .form-inline .input-prepend {
+        margin-bottom: 0;
+    }
+
+    // Inline checkbox/radio labels (remove padding on left)
+    .form-search .radio,
+    .form-search .checkbox,
+    .form-inline .radio,
+    .form-inline .checkbox {
+        margin-bottom: 0;
+        padding-left: 0;
+        vertical-align: middle;
+    }
+
+    // Remove float and margin, set to inline-block
+    .form-search .radio input[type="radio"],
+    .form-search .checkbox input[type="checkbox"],
+    .form-inline .radio input[type="radio"],
+    .form-inline .checkbox input[type="checkbox"] {
+        float: left;
+        margin-right: 3px;
+        margin-left: 0;
+    }
+
+    // Margin to space out fieldsets
+    .control-group {
+        margin-bottom: form-control-group-margin-bottom;
+    }
+
+    // Legend collapses margin, so next element is responsible for spacing
+    // legend + .control-group {
+    //     margin-top: 1;
+    //     -webkit-margin-top-collapse: separate;
+    // }
+
+    // Horizontal-specific styles
+    .form-horizontal {
+
+        // Increase spacing between groups
+        .control-group {
+            clearfix();
+        }
+
+        // Float the labels left
+        .control-label {
+            float: left;
+            width: 25%;
+            padding-top: 5px;
+            text-align: right;
+        }
+
+        // Move over all input controls and content
+        .controls {
+            margin-left: 28%;
+        }
+
+        // Remove bottom margin on block level help text since that's 
+        // accounted for on .control-group
+        .help-block,
+        .error-block {
+            margin-top: .25;
+            margin-bottom: 0;
+        }
+
+        // Move over buttons in .form-actions to align with .controls
+        .form-actions {
+            padding-left: 28%;
+        }
+    }
+}
+
+// =============================================================================
+
+form(){
+    form-normalize();
+    form-style();
+}
