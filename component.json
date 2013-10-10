@@ -2,7 +2,7 @@
   "name": "form",
   "repo": "chameleonui/form",
   "description": "Full set of forms styles",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "keywords": [],
   "dependencies": {
     "chameleonui/utils": "*"
